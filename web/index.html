@@ -99,12 +99,36 @@
             </thead>
             <tbody id="dish_rows">
                 
-
             </tbody>
         </table>
     </div>
-    <div class="container" id="ordersContainer">Order</div>
+    <div class="container" id="ordersContainer">
+        <h1 class="text-center my-5 text-info">Create Order</h1>
+        <div class="col-md-6 offset-md-3">
+            <form>
+            <div class="form-group">
+                <label for="create_order_table_name">Available Table</label>
+                <select name="" class="form-control" id="create_order_table_name">
+                
+                </select>  
+            </div>
+            <div class="form-group">
+                <label for="create_order_dish_name">Available Dish</label>
+                <select name=""  class="form-control" id="create_order_dish_name">
+              
+                </select>  
+            </div>
+
+            <div class="form-group">
+                <label for="create_order_count">Order Count</label>
+                <input type="number" class="form-control rounded-0" id="create_order_count">
+            </div>
+            <button class="btn btn-primary btn-sm float-right" id="create_order_btn">Order</button>
+        </form>
+        </div>
+    </div>
     <div class="container" id="historyContainer">Histroy</div>
+
     <div class="container" id="tableCreateContainer">
         <h1 class="text-center my-5 text-info">Create New Table</h1>
         <div class="col-md-6 offset-md-3">
@@ -113,6 +137,19 @@
                 <input type="text" class="form-control rounded-0" id="create_table_name">
             </div>
             <button class="btn btn-primary btn-sm float-right" onclick="createTable()">Create</button>
+        </div>
+    </div>
+
+     
+    <div class="container" id="tableEditContainer">
+        <h1 class="text-center my-5 text-info">Edit Table</h1>
+        <div class="col-md-6 offset-md-3">
+            <div class="form-group">
+                <label for="edit_table_name">Table Name</label>
+                <input type="text" class="form-control rounded-0" id="edit_table_name">
+                <input type="hidden" class="form-control rounded-0" id="edit_table_id">
+            </div>
+            <button class="btn btn-primary btn-sm float-right" id="update_table_bt">Update</button>
         </div>
     </div>
 
@@ -131,6 +168,21 @@
         </div>
     </div>
 
+    <div class="container" id="dishEditContainer">
+        <h1 class="text-center my-5 text-info">Edit Dish</h1>
+        <div class="col-md-6 offset-md-3">
+            <div class="form-group">
+                <label for="table_name">Dish Name</label>
+                <input type="hidden" class="form-control rounded-0" id="edit_dish_id">
+                <input type="text" class="form-control rounded-0" id="edit_dish_name">
+            </div>
+            <div class="form-group">
+                <label for="table_name">Dish Price</label>
+                <input type="number" class="form-control rounded-0" id="edit_dish_price">
+            </div>
+            <button class="btn btn-primary btn-sm float-right" onclick="updateDishes()">Update</button>
+        </div>
+    </div>
 
 
 

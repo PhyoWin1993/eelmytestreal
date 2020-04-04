@@ -24,12 +24,21 @@ def getAllDishesNow():
     result = session.query(Dishes).all()
     return result
 
+def update():
+    session.commit()
 
+def findById(obj,id):
+    return session.query(obj).get(id)
 # Testing Under two method
-def getTableId(id):
+def getTableIdNow(id):
     table = session.query(Tables).get(id)
     return table
 
-def deleteTable(obj):
+def deteteObj(obj):
     session.delete(obj)
+    session.commit()
 
+def createOrderNow(table_id,dish_id,price,order_count):
+    obj = Orders(table_id=table_id,dish_id=dish_id,price=price,order_count=order_count)
+    session.add(obj)
+    session.commit()
