@@ -12,7 +12,7 @@
     <title>Hello, world!</title>
   </head>
   <body>
-    <div class="container">
+    <div class="container" id="nav_hidden">
         <ul class="nav">
             <li class="nav-item">
                 <a class="nav-link active" onclick="show('homeContainer')">Home</a>
@@ -25,6 +25,9 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link" onclick="show('ordersContainer')">Orders</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" onclick="show('allOrderContainer')">All Order List</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" onclick="show('historyContainer')">History</a>
@@ -66,13 +69,13 @@
         </div>
         
     </div>
-    <div class="container" id="tableContainer">
+    <div class="container mt-5" id="tableContainer">
         <h1 class="text-center text-info">All Tables</h1>
         <button class="btn btn-primary btn-sm" onclick="show('tableCreateContainer')">Create</button>
         <table class="table table-bordered">
             <thead>
                 <tr class="bg-dark text-white">
-                    <th scope="col">Id</th>
+                    <th scope="col">No</th>
                     <th scope="col">Name</th>
                     <th scope="col">Status</th>
                     <th scope="col">Action</th>
@@ -85,13 +88,13 @@
         </table>
     </div>
     
-    <div class="container" id="dishesContainer">
+    <div class="container mt-5" id="dishesContainer">
         <h1 class="text-center text-info">All Dishes</h1>
         <button class="btn btn-primary btn-sm" onclick="show('dishCreateContainers')">Create</button>
         <table class="table table-bordered">
             <thead>
                 <tr class="bg-dark text-white">
-                    <th scope="col">Id</th>
+                    <th scope="col">No</th>
                     <th scope="col">Name</th>
                     <th scope="col">Price</th>
                     <th scope="col">Action</th>
@@ -127,7 +130,32 @@
         </form>
         </div>
     </div>
-    <div class="container" id="historyContainer">Histroy</div>
+
+    <div class="container mt-5" id="historyContainer">
+
+        <h1 class="text-center text-info">History</h1>
+        <!-- <button class="btn btn-primary btn-sm" onclick="show('tableCreateContainer')">Create</button> -->
+        <table class="table table-bordered">
+            <thead>
+                <tr class="bg-dark text-white">
+                    <th scope="col">Order Id</th>
+                    <th scope="col">Table Name</th>
+                    <th scope="col">Dish Name</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Count</th>
+                    <th scope="col">Total Cost</th>
+                    <th scope="col">Order Date</th>
+                </tr>
+            </thead>
+            <tbody id="history_tables">
+
+            </tbody>
+        </table>
+
+
+
+        
+    </div>
 
     <div class="container" id="tableCreateContainer">
         <h1 class="text-center my-5 text-info">Create New Table</h1>
@@ -184,6 +212,37 @@
         </div>
     </div>
 
+    <div class="container mt-5" id="allOrderContainer">
+        <h1 class="text-center text-info mb-4" id="showtableName"></h1>
+        <button class="btn btn-primary btn-sm" id="back_to_table_bt" onclick="show('tableContainer')">Go To Table</button>
+        <table class="table table-bordered" id="order_table_print">
+            <thead>
+                <tr class="bg-dark text-white">
+                    <th scope="col">No</th>
+                    <!-- <th scope="col" class="table_name_hidden">Table Name</th> -->
+                    <th scope="col">Dish Name</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Count</th>
+                    <th scope="col">Total</th>
+                    <!-- <th scope="col">Status</th> -->
+                </tr>
+            </thead>
+            <tbody id="all_order_row">
+               
+            </tbody>
+            <tbody>
+               <tr>
+                   <th colspan="4" class="text-right">Grand Total</th>
+                   <th id="grand_total">  </th>
+               </tr>
+               <tr id="bt_displaty_none">
+                <th colspan="5" class="text-right">
+                    <button class="btn btn-primary btn-sm float-right" onclick="billOut()">Print </button>
+                </th>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 
 
     <!-- Optional JavaScript -->

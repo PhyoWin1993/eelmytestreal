@@ -42,3 +42,12 @@ def createOrderNow(table_id,dish_id,price,order_count):
     obj = Orders(table_id=table_id,dish_id=dish_id,price=price,order_count=order_count)
     session.add(obj)
     session.commit()
+
+
+def search(obj,table_id,status):
+    result = session.query(obj).filter(obj.table_id==table_id).filter(obj.status==status).all()
+    return result
+
+def searchHistoryNow(obj,status):
+    result = session.query(obj).filter(obj.status==status).all()
+    return result

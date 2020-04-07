@@ -49,6 +49,13 @@ def updateTable(id,name):
     
 
 @eel.expose
+def getTbNameById(id):
+    result =findById(Tables,id)
+    return result.name
+    
+
+
+@eel.expose
 def updateTableStatus(id,status):
     resul =findById(Tables,id)
     resul.status = status
@@ -93,6 +100,35 @@ def createOrder(table_id,dish_id,order_count):
 def loadDishAndTable():
     obj = {"tables":getAllTable(),"dishes":getAlldishes()}
     return obj
+
+@eel.expose
+def getOrderByTbId(id):
+    results = search(Orders,id,1) 
+    resultList = list()
+    for result in results:
+        obj = {"id":result.id,"tableName":result.table.name,"dishName":result.dish.name,"price":result.price,"count":result.order_count,"status":result.status}
+        resultList.append(obj)
+    return resultList
+
+@eel.expose
+def updateOrderStatus(id):
+    results = search(Orders,id,1)
+    for result in results:
+        result.status=0   
+    update()
+
+
+
+@eel.expose
+def getHistory():
+    results = searchHistoryNow(Orders,0) 
+    resultList = list()
+    for result in results:
+        obj = {"id":result.id,"tableName":result.table.name,"dishName":result.dish.name,"price":result.price,"count":result.order_count,"times":result.date_time}
+        resultList.append(obj)
+        
+    
+    return resultList
 
 
 eel.start("index.html")

@@ -1,3 +1,5 @@
+let select_tb_id = 0 ;
+
 function createTable(){
     name = document.querySelector('#create_table_name').value ;
     eel.createTable(name)((data)=>{
@@ -10,17 +12,18 @@ function createTable(){
 function loadAllTables(){
     eel.getAllTable()((datas)=>{
         let str = "";
+        let num=1;
         datas.forEach((data) => {
             let bg = data.status == 1 ?'secondary':'success';
             let txt = data.status == 1 ?'Engaged':'     Free    ';
             str+=`
             <tr>
-                    <td>${data.id}</td>
+                    <td>${num}</td>
                     <td>${data.name}</td>
                     <td>
                         <button class="btn btn-success btn-sm bg-${bg}" id="update_table_status" onclick="updateTablestatu(${data.id},${data.status})">${txt}</button>
         
-                        <button class="btn btn-info btn-sm"><i class="fa fa-eye"></i></button>
+                        <button class="btn btn-info btn-sm" onclick="loadorderbytableid(${data.id})"><i class="fa fa-eye"></i></button>
                     </td>
                     <td>
                         <button class="btn btn-warning btn-sm" onclick="getTables(${data.id})"> <i class="fa fa-edit"></i></button>
@@ -31,6 +34,7 @@ function loadAllTables(){
             
             
             `;
+            num++;
 
         });
         document.querySelector("#table_rows").innerHTML = str;
@@ -50,10 +54,11 @@ function createDish(){
 function loadAllDishes(){
     eel.getAlldishes()((datas)=>{
         let str = "";
+        let num = 1;
         datas.forEach((data)=>{
             str+=`
             <tr>
-                <td>${data.id}</td>
+                <td>${num}</td>
                 <td>${data.name}</td>
                 <td>${data.price}</td>
                 <td>
@@ -63,6 +68,7 @@ function loadAllDishes(){
             </tr>
             
             `
+            num++;
         })
 
         document.querySelector('#dish_rows').innerHTML = str;
@@ -149,3 +155,91 @@ create_order_btn.addEventListener('click',(event)=>{
     })
     
 })
+
+
+function testAlert(){
+    eel.getOrderByTbId(4)((data)=>{
+        alert("Ok order Table id");
+    })
+}
+
+function loadorderbytableid(id){
+    select_tb_id = id;
+    eel.getTbNameById(id)((tbname)=>{
+        document.querySelector('#showtableName').innerHTML=tbname ;
+    })
+    eel.getOrderByTbId(id)((datas)=>{
+        
+        let all_order_row = document.querySelector('#all_order_row');
+        let Str = "";
+        let no = 0;
+        let grandTotal = 0;
+        datas.forEach((data)=>{
+            grandTotal+=data.price * data.count;
+           
+            no++;
+            Str +=`
+            <tr>
+               
+                <td>${no}</td>
+                
+                <td>${data.dishName }</td>
+                <td>${data.price }</td>
+                <td>${ data.count }</td>
+                <td>${data.price * data.count}</td>
+             
+            </tr>
+
+            
+            `
+        })
+        all_order_row.innerHTML = Str;
+        document.querySelector('#grand_total').innerHTML = grandTotal;
+        
+    });
+    
+    show("allOrderContainer");
+}
+
+function billOut(){
+
+    window.print();
+    eel.updateTableStatus(select_tb_id,0)(()=>{
+
+    })
+
+    eel.updateOrderStatus(select_tb_id)(()=>{
+        alert("Paied Success");
+        show("tableContainer");
+
+    })
+
+}
+
+function loadHistory(){
+    
+    eel.getHistory()((data)=>{
+        let Str = "";
+
+        data.forEach((datas)=>{
+            
+       Str +=`
+     
+                <tr>
+                            
+                    <td>${datas.id}</td>  
+                    <td>${datas.tableName}</td>
+                    <td>${datas.dishName}</td>
+                    <td>${datas.price}</td>
+                    <td>${datas.count}</td>
+                    <td>${datas.price * datas.count}</td>  
+                    <td>${datas.times}</td>
+                    
+                    </tr>
+       
+  `
+        })
+        document.querySelector('#history_tables').innerHTML = Str;
+
+    });
+}

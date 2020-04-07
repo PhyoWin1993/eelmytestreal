@@ -8,3 +8,22 @@
 .nav-link a:hover{
     color:white;
 }
+
+
+
+
+@media print{
+    #order_table_print{
+        background: rgb(201, 47, 47);
+    }
+    #bt_displaty_none{
+        display:none;
+    }
+    #nav_hidden{
+        display: none;
+    }
+    #back_to_table_bt{
+        display: none;
+    }
+    
+}
