@@ -66,7 +66,7 @@ def updateTableStatus(id,status):
 def deleteTables(id):
     obj =  getTableIdNow(id)
     deteteObj(obj)
-    
+ 
 @eel.expose
 def deleteDishes(id):
     obj =findById(Dishes,id)
@@ -130,6 +130,20 @@ def getHistory():
     
     return resultList
 
+@eel.expose
+def getCurrentOrder():
+    results = searchHistoryNow(Orders,1) 
+    resultList = list()
+    for result in results:
+        obj = {"id":result.id,"tableName":result.table.name,"dishName":result.dish.name,"price":result.price,"count":result.order_count,"times":result.date_time}
+        resultList.append(obj)
+    return resultList
+
+
+@eel.expose
+def deleteCurrentOrder(id):
+    obj = findById(Orders,id)
+    deteteObj(obj)
 
 eel.start("index.html")
 

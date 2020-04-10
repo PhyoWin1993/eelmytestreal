@@ -18,7 +18,7 @@ function loadAllTables(){
             let txt = data.status == 1 ?'Engaged':'     Free    ';
             str+=`
             <tr>
-                    <td>${num}</td>
+                    <td scope="row">${num}</td>
                     <td>${data.name}</td>
                     <td>
                         <button class="btn btn-success btn-sm bg-${bg}" id="update_table_status" onclick="updateTablestatu(${data.id},${data.status})">${txt}</button>
@@ -26,8 +26,8 @@ function loadAllTables(){
                         <button class="btn btn-info btn-sm" onclick="loadorderbytableid(${data.id})"><i class="fa fa-eye"></i></button>
                     </td>
                     <td>
-                        <button class="btn btn-warning btn-sm" onclick="getTables(${data.id})"> <i class="fa fa-edit"></i></button>
-                        <button class="btn btn-danger btn-sm" onclick="deleteTable(${data.id})"><i class="fa fa-trash"></i></button>
+                        <button class="btn btn-warning btn-sm float-left" onclick="getTables(${data.id})"> <i class="fa fa-edit"></i></button>
+                        <button class="btn btn-danger btn-sm float-right" onclick="deleteTable(${data.id})"><i class="fa fa-trash"></i></button>
                     </td>
             </tr>
             
@@ -62,8 +62,8 @@ function loadAllDishes(){
                 <td>${data.name}</td>
                 <td>${data.price}</td>
                 <td>
-                    <button class="btn btn-warning btn-sm" onclick="loadDishId(${data.id})" ><i class="fa fa-edit"></i></button>
-                    <button class="btn btn-danger btn-sm" onclick="deleteDish(${data.id})"><i class="fa fa-trash"></i></button>
+                    <button class="btn btn-warning btn-sm float-left" onclick="loadDishId(${data.id})" ><i class="fa fa-edit"></i></button>
+                    <button class="btn btn-danger btn-sm float-right" onclick="deleteDish(${data.id})"><i class="fa fa-trash"></i></button>
                 </td>
             </tr>
             
@@ -149,6 +149,12 @@ create_order_btn.addEventListener('click',(event)=>{
     let tb_id = document.querySelector('#create_order_table_name').value;
     let d_id  = document.querySelector('#create_order_dish_name').value;
     let dish_count = document.querySelector('#create_order_count').value;
+
+    eel.updateTableStatus(tb_id,1)(()=>{
+        
+    })
+
+
     eel.createOrder(tb_id,d_id,dish_count)(()=>{
         alert("success!");
         document.querySelector('#create_order_count').value="";
@@ -242,4 +248,35 @@ function loadHistory(){
         document.querySelector('#history_tables').innerHTML = Str;
 
     });
+}
+
+
+
+function loadCurrentOrder(){
+    eel.getCurrentOrder()((datas)=>{
+        let Str = "";
+        datas.forEach((data)=>{
+            Str += `
+            <tr>
+                    <td>${ data.id }</td>
+                    <td> ${data.tableName}</td>
+                    <td>${data.dishName}</td>
+                    <td>${data.price}</td>
+                    <td>${data.count }</td>  
+                    <td>${data.times}</td>
+                    <td> 
+                        <button class="btn btn-danger btn-sm float-rights" onclick="deleteCurrentOrder(${data.id})"><i class="fa fa-trash"></i></button>
+                    </td>
+            </tr>
+            `
+        })
+        document.querySelector('#all_table_order_row').innerHTML = Str;
+
+    });
+}
+
+function deleteCurrentOrder(id){
+    eel.deleteCurrentOrder(id)(()=>{
+        loadCurrentOrder();
+    })
 }

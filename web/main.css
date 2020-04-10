@@ -1,12 +1,12 @@
-.nav-link{
+.navbar-brand{
     cursor: pointer;
-    transition: 2s;
 }
-.nav-link:hover{
-    background-color: rgb(211, 19, 211);   
+
+.card-body h1{
+    cursor: pointer;
 }
-.nav-link a:hover{
-    color:white;
+.navbar-nav .nav-item .nav-link{
+    text-transform: capitalize;
 }
 
 

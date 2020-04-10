@@ -1,4 +1,4 @@
-let panels = ["homeContainer", "tableContainer", "dishesContainer", "ordersContainer", "historyContainer", "tableCreateContainer","dishCreateContainers","tableEditContainer","dishEditContainer","allOrderContainer"];
+let panels = ["homeContainer", "tableContainer", "dishesContainer", "ordersContainer", "historyContainer", "tableCreateContainer","dishCreateContainers","tableEditContainer","dishEditContainer","allOrderContainer","allTableOrderCntainer"];
 
 function show(container) {
     console.log(container);
@@ -15,6 +15,8 @@ function show(container) {
         loadOptionList();
     }else if(container=="historyContainer"){
         loadHistory();
+    }else if(container == "allTableOrderCntainer"){
+        loadCurrentOrder();
     }
    
 }
